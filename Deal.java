@@ -22,33 +22,42 @@ public class Deal {
         System.out.println("Введите номер для удаления: ");
         int number = Integer.parseInt(scan.nextLine());
         if (number > 0 && number <= list.size()) {
-            String removed = list.remove(number - 1);
+            list.remove(number - 1);
             System.out.println("Удалено!");
         } else {
-            System.out.println("Вееден не существующий номер");
+            System.out.println("Вееден не существующий номер, задача не удалена");
         }
     }
 
     public void removeDealTitle(ArrayList<String> list, Scanner scan) {
         System.out.println("Введите задачу для удаления: ");
         String title = scan.nextLine();
-        list.remove(title);
+        if (list.remove(title)){
+            System.out.println("Задача  " + title + " удалена");
+        } else {
+            System.out.println("Задачи " + title + " нет в списке");
+        }
     }
 
     public void removeDealWord(ArrayList<String> list, Scanner scan) {
         System.out.println("Введите слово для удаления задачи: ");
         String key = (scan.nextLine().toLowerCase());
         Iterator<String> iterator = list.iterator();
+        boolean found = false;
         while (iterator.hasNext()) {
             String s = iterator.next().toLowerCase();
             String[] words = s.toLowerCase().split(" ");
             for (String word : words) {
                 if (word.equals(key)) {
                     iterator.remove();
+                    found = true;
                 }
             }
         }
-
+        if (found) {
+            System.out.println("Задача со словом " + key + " удалена");
+        } else {
+            System.out.println("Задачи со словом " + key + " нет в списке");
+        }
     }
-
 }
